@@ -34,7 +34,7 @@ namespace GIS_ex_210910 {
         string gga;
 
         //ntrip 켜짐여부
-        int ntripCheck=0;
+        int ntripCheck;
         #endregion
 
         #region gps 시리얼 통신 field
@@ -49,8 +49,10 @@ namespace GIS_ex_210910 {
             }
         private void RTK_Load(object sender, EventArgs e) {
             //폼 로드시 사용가능한 포트번호 가져오기
-            combx_port.DataSource = SerialPort.GetPortNames();            
+            combx_port.DataSource = SerialPort.GetPortNames();
+            ntripCheck = 0;
             }
+
         #region GPS serial 통신
         private void Btn_serialConn_Click(object sender, EventArgs e) {
 
@@ -68,6 +70,10 @@ namespace GIS_ex_210910 {
 
                 MessageBox.Show("포트가 열렸습니다.");
                 combx_port.Enabled = false;  //COM포트설정 콤보박스 비활성화
+                
+                //map 로드...이걸 initialize 쪽에 넣으면 rtk 폼이 로드되기 전에 map이 먼저떠서 오류가 날 수 있음            
+                this.AddOwnedForm(mapForm);
+                mapForm.Show();
                 } else  //시리얼포트가 열려 있으면
                   {                
                 MessageBox.Show("포트가 이미 열려 있습니다.");
@@ -164,10 +170,6 @@ namespace GIS_ex_210910 {
             }
 
         private void btn_ntripStart_Click(object sender, EventArgs e) {
-            //map 로드...이걸 initialize 쪽에 넣으면 rtk 폼이 로드되기 전에 map이 먼저떠서 오류가 날 수 있음            
-            this.AddOwnedForm(mapForm);
-            mapForm.Show();
-
             //gga ex $GPGGA,052158,4158.7333,N,09147.4277,W,2,08,3.1,260.4,M,-32.6,M,,*79               
             sendGGA(this.gga);
             ntripCheck = 1;

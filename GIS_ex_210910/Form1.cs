@@ -25,14 +25,19 @@ namespace GIS_ex_210910 {
         GMapOverlay lineOverlay;
         //RTK 폼에서 데이터를 받아오기위한 static변수
         static public string RTK_GGAdata;
-        //현재위치마커
-        static public GMapOverlay currMarkers;
-        static public GMapMarker currMarker;
+        //currpoint        
+        public GMapOverlay currMarkers = new GMapOverlay("currMarker");
+        public GMapMarker currMarker;
+        private List<PointLatLng> _currPoints;
+        public GMapRoute currRoute;
+        public GMapOverlay currRouteOverlay;
+        
         #endregion
 
         public Form1() {
             InitializeComponent();
             _points = new List<PointLatLng>();
+            _currPoints = new List<PointLatLng>();
             this.btn_line.Click += btn_line_Click;
             this.btn_clear.Click += btn_clear_Click;            
             }
@@ -44,8 +49,7 @@ namespace GIS_ex_210910 {
             
             gmap.Position = new PointLatLng(36.399655912013735, 127.39978844890516);
                 
-            gmap.ShowCenter = true;
-
+            gmap.ShowCenter = true;            
             ////마커추가
             //GMapOverlay markers = new GMapOverlay("markers");
             //GMapMarker marker = new GMarkerGoogle(
@@ -153,7 +157,7 @@ namespace GIS_ex_210910 {
         
             lineOverlay=new GMapOverlay("lineOverlay");
             linelayer = new GMapRoute("routeLine");
-            linelayer.Stroke = new Pen(Brushes.Red, 2);
+            linelayer.Stroke = new Pen(Brushes.Green, 2);
 
             lineOverlay.Routes.Add(linelayer);
             gmap.Overlays.Add(lineOverlay);
@@ -180,15 +184,33 @@ namespace GIS_ex_210910 {
             double lng = Convert.ToDouble(lngDD) + (Convert.ToDouble(lngMM) / 60);
 
             if(!String.IsNullOrEmpty(latDD) && !String.IsNullOrEmpty(lngDD)){
-                PointLatLng currPoint = new PointLatLng(lat,lng);
-
-                currMarkers = new GMapOverlay("currMarkers");
-                currMarker = new GMarkerGoogle(currPoint, GMarkerGoogleType.red);
+                PointLatLng currPoint = new PointLatLng(lat,lng);                
+                _currPoints.Add(currPoint);
                 //현재위치로 이동
+                gmap.Position = currPoint;                
 
-                currMarkers.Markers.Add(currMarker);
-                gmap.Overlays.Add(currMarkers);
-                gmap.Position = currPoint;
+                //marker
+                
+                //경로
+                currRouteOverlay = new GMapOverlay("currRouteOverlay");
+                currRoute = new GMapRoute("currRoute");
+                currRoute.Stroke = new Pen(Brushes.Red, 2);
+
+                for(int i = 0 ; i < _currPoints.Count ; i++) {
+                    currRoute.Points.Add(_currPoints[i]);
+                    if(i > 0) {                        
+                        currMarkers.Clear();                       
+                        }                                    
+                    currMarker = new GMarkerGoogle(_currPoints[i], GMarkerGoogleType.red);
+                    gmap.Overlays.Add(currMarkers);
+                    currMarkers.Markers.Add(currMarker);
+                    }
+
+                gmap.Overlays.Add(currRouteOverlay);                
+                currRouteOverlay.Routes.Add(currRoute);
+
+                gmap.UpdateRouteLocalPosition(currRoute);                
+                
                 }
             }
         #endregion
