@@ -51,6 +51,7 @@ namespace GIS_ex_210910 {
             //폼 로드시 사용가능한 포트번호 가져오기
             combx_port.DataSource = SerialPort.GetPortNames();
             ntripCheck = 0;
+            
             }
 
         #region GPS serial 통신

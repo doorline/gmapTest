@@ -25,9 +25,9 @@
         private void InitializeComponent() {
             this.gmap = new GMap.NET.WindowsForms.GMapControl();
             this.panel_cntrl = new System.Windows.Forms.Panel();
-            this.btn_line = new System.Windows.Forms.Button();
-            this.btn_clear = new System.Windows.Forms.Button();
             this.lb_markerIndex = new System.Windows.Forms.Label();
+            this.btn_clear = new System.Windows.Forms.Button();
+            this.btn_line = new System.Windows.Forms.Button();
             this.panel_cntrl.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -42,7 +42,7 @@
             this.gmap.LevelsKeepInMemory = 5;
             this.gmap.Location = new System.Drawing.Point(0, 0);
             this.gmap.MarkersEnabled = true;
-            this.gmap.MaxZoom = 18;
+            this.gmap.MaxZoom = 22;
             this.gmap.MinZoom = 2;
             this.gmap.MouseWheelZoomEnabled = true;
             this.gmap.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
@@ -71,14 +71,15 @@
             this.panel_cntrl.Size = new System.Drawing.Size(194, 600);
             this.panel_cntrl.TabIndex = 0;
             // 
-            // btn_line
+            // lb_markerIndex
             // 
-            this.btn_line.Location = new System.Drawing.Point(56, 480);
-            this.btn_line.Name = "btn_line";
-            this.btn_line.Size = new System.Drawing.Size(75, 23);
-            this.btn_line.TabIndex = 0;
-            this.btn_line.Text = "Line";
-            this.btn_line.UseVisualStyleBackColor = true;
+            this.lb_markerIndex.AutoSize = true;
+            this.lb_markerIndex.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lb_markerIndex.Location = new System.Drawing.Point(40, 436);
+            this.lb_markerIndex.Name = "lb_markerIndex";
+            this.lb_markerIndex.Size = new System.Drawing.Size(113, 16);
+            this.lb_markerIndex.TabIndex = 2;
+            this.lb_markerIndex.Text = "Marker Index";
             // 
             // btn_clear
             // 
@@ -90,15 +91,14 @@
             this.btn_clear.UseVisualStyleBackColor = true;
             this.btn_clear.Click += new System.EventHandler(this.btn_clear_Click);
             // 
-            // lb_markerIndex
+            // btn_line
             // 
-            this.lb_markerIndex.AutoSize = true;
-            this.lb_markerIndex.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lb_markerIndex.Location = new System.Drawing.Point(40, 436);
-            this.lb_markerIndex.Name = "lb_markerIndex";
-            this.lb_markerIndex.Size = new System.Drawing.Size(113, 16);
-            this.lb_markerIndex.TabIndex = 2;
-            this.lb_markerIndex.Text = "Marker Index";
+            this.btn_line.Location = new System.Drawing.Point(56, 480);
+            this.btn_line.Name = "btn_line";
+            this.btn_line.Size = new System.Drawing.Size(75, 23);
+            this.btn_line.TabIndex = 0;
+            this.btn_line.Text = "Line";
+            this.btn_line.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
