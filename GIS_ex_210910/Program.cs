@@ -15,6 +15,7 @@ namespace GIS_ex_210910 {
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Form1());
             Application.Run(new RTK());
+            GMap.NET.MapProviders.GMapProviders.List.Add(VwMap.Instance);
             }
         }
     }

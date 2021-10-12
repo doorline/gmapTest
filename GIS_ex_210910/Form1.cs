@@ -44,7 +44,8 @@ namespace GIS_ex_210910 {
 
         private void Form1_Load(object sender, EventArgs e) {
             //폼 로드시 지도 표기            
-            gmap.MapProvider = GMapProviders.GoogleSatelliteMap;
+            gmap.MapProvider = VwMap.Instance;
+            //gmap.MapProvider = GMapProviders.GoogleSatelliteMap;
             GMap.NET.GMaps.Instance.Mode = AccessMode.ServerOnly;
             
             gmap.Position = new PointLatLng(36.399655912013735, 127.39978844890516);

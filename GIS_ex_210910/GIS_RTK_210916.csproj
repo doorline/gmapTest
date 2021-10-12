@@ -97,6 +97,7 @@
     <Compile Include="RTK.Designer.cs">
       <DependentUpon>RTK.cs</DependentUpon>
     </Compile>
+    <Compile Include="VwMap.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
