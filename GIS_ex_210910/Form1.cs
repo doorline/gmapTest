@@ -31,7 +31,9 @@ namespace GIS_ex_210910 {
         private List<PointLatLng> _currPoints;
         public GMapRoute currRoute;
         public GMapOverlay currRouteOverlay;
-        
+        double currlat;
+        double currlng;
+
         #endregion
 
         public Form1() {
@@ -176,16 +178,22 @@ namespace GIS_ex_210910 {
         #region 현재위치표시
         public void addRtkMarker(string gga) {
             string[ ] splitGGA = gga.Split(',');
-            string latDD = splitGGA[2].Substring(0, 2);
-            string latMM = splitGGA[2].Substring(2);
-            string lngDD = splitGGA[4].Substring(0, 3);
-            string lngMM = splitGGA[4].Substring(3);
+            if(splitGGA.Length>2) {
+                string latDD = splitGGA[2].Substring(0, 2);
+                string latMM = splitGGA[2].Substring(2);
+                string lngDD = splitGGA[4].Substring(0, 3);
+                string lngMM = splitGGA[4].Substring(3);
 
-            double lat = Convert.ToDouble(latDD) + (Convert.ToDouble(latMM) / 60);
-            double lng = Convert.ToDouble(lngDD) + (Convert.ToDouble(lngMM) / 60);
+                currlat = Convert.ToDouble(latDD) + (Convert.ToDouble(latMM) / 60);
+                currlng = Convert.ToDouble(lngDD) + (Convert.ToDouble(lngMM) / 60);
+                } else {
+                currlat = _currPoints[_currPoints.Count - 1].Lat;
+                currlng = _currPoints[_currPoints.Count - 1].Lng;
+                }
 
-            if(!String.IsNullOrEmpty(latDD) && !String.IsNullOrEmpty(lngDD)){
-                PointLatLng currPoint = new PointLatLng(lat,lng);                
+
+            if(!String.IsNullOrEmpty(currlat.ToString()) && !String.IsNullOrEmpty(currlng.ToString())){
+                PointLatLng currPoint = new PointLatLng(currlat,currlng);                
                 _currPoints.Add(currPoint);
                 //현재위치로 이동
                 gmap.Position = currPoint;                
